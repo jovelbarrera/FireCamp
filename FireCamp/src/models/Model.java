@@ -2,8 +2,17 @@ package models;
 
 import java.util.Date;
 
-public class Model {    
-    protected String _Id;
-    protected Date _createdAt;
-    protected Date _updatedAt;
+public class Model
+{
+
+    protected int Id;
+    protected Date CreatedAt;
+    protected Date UpdatedAt;
+
+//    public Model(int id, Date createdAt, Date updatedAt)
+//    {
+//        Id = id;
+//        CreatedAt = createdAt;
+//        UpdatedAt = updatedAt;
+//    }
 }
