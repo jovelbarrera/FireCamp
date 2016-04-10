@@ -1,6 +1,5 @@
 package models;
 
-import java.sql.ResultSet;
 import java.util.Date;
 
 public class User extends Model
@@ -128,7 +127,7 @@ public class User extends Model
         return _organization;
     }
 
-    public boolean isIsActive()
+    public boolean getIsActive()
     {
         return _isActive;
     }

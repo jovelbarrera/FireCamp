@@ -1,10 +1,8 @@
-package services;
+package config.managers;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Dictionary;
 import java.util.List;
 import models.Model;
 
@@ -14,7 +12,6 @@ public abstract class MySqlManager<T extends Model> extends DBManager<T>
     protected String _table;
 
     public MySqlManager(String driver, String server, int port, String db, String user, String pass)
-            throws Exception
     {
         super(driver, server, port, db, user, pass);
         setTable(setTable());
@@ -35,28 +32,41 @@ public abstract class MySqlManager<T extends Model> extends DBManager<T>
     // Abstract methods
     protected abstract String setTable();
 
-    protected abstract T mappingModel(ResultSet resultSet);
+    protected abstract T ModelSelectResult(ResultSet resultSet);
+
+    protected abstract String ModelInsertString(T model);
 
     // DBManager Implementation
     @Override
-    public List<T> Select(String where)
-            throws Exception
+    public List<T> Select(String insertString)
     {
         try
         {
-            String selectQuery = String.format("SELECT * FROM %s", getTable());
+            String selectQuery = "";
+            if (insertString == null || insertString.equals(""))
+            {
+                selectQuery = String.format("SELECT * FROM %s", getTable());
+            }
+            else
+            {
+                selectQuery = String.format("SELECT * FROM %s WHERE %s", getTable(), insertString);
+            }
+
+            OpenConnection();
             Statement stmt = Connection.createStatement();
             ResultSet resultSet = stmt.executeQuery(selectQuery);
 
             List<T> result = new ArrayList<>();
             while (resultSet.next())
             {
-                result.add(mappingModel(resultSet));
+                result.add(ModelSelectResult(resultSet));
             }
+            CloseConnection();
             return result;
         }
         catch (Exception ex)
         {
+            CloseConnection();
             System.out.println("Error: " + ex);
             return null;
         }
@@ -64,43 +74,30 @@ public abstract class MySqlManager<T extends Model> extends DBManager<T>
 
     @Override
     public T Select(int id)
-            throws Exception
     {
-        try
+        List<T> user = Select(String.format("id=%d", id));
+        if (user != null)
         {
-            List<T> user = Select(String.format("id=%d", id));
             return user.get(0);
         }
-        catch (Exception e)
+        else
         {
             return null;
         }
     }
 
     @Override
-    public boolean InsertOrUpdate(Dictionary<String, String> values)
-            throws Exception
+    public boolean InsertOrUpdate(T model)
     {
-        if (values == null)
+        if (model == null)
         {
             return false;
         }
         try
         {
-            String valueString = "";
-            String[] keys = new String[0];
-            Collections.list(values.keys()).toArray(keys);
-            for (int i = 0; i < keys.length; i++)
-            {
-                String key = values.get(keys[i]);
-                valueString += values.get(key);
-                if (i < keys.length - 1)
-                {
-                    valueString += ", ";
-                }
-            }
-            String insertQuery = String.format("INSERT INTO %s VALUES (%s)", getTable(), valueString);
+            String insertQuery = ModelInsertString(model);
 
+            OpenConnection();
             Statement statement = Connection.createStatement();
             statement.executeUpdate(insertQuery);
             System.out.println("Inserted records into the table...");
@@ -116,17 +113,18 @@ public abstract class MySqlManager<T extends Model> extends DBManager<T>
         finally
         {
             CloseConnection();
+            return false;
         }
     }
 
     @Override
-    public boolean Delete(int id)
-            throws Exception
+    public boolean Delete(String where)
     {
         try
         {
-            String deleteQuery = String.format("DELETE %s WHERE id = %d", getTable(), id);
+            String deleteQuery = String.format("DELETE %s WHERE %s", getTable(), where);
 
+            OpenConnection();
             Statement statement = Connection.createStatement();
             statement.executeUpdate(deleteQuery);
             System.out.println("Record deleted...");
@@ -142,13 +140,14 @@ public abstract class MySqlManager<T extends Model> extends DBManager<T>
         finally
         {
             CloseConnection();
+            return false;
         }
     }
 
     @Override
-    public boolean Delete(String where)
-            throws Exception
+    public boolean Delete(int id)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean success = Delete(String.format("id=%d", id));
+        return success;
     }
 }
