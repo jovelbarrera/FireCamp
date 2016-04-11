@@ -7,17 +7,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="276.0" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="firecamp.LoginController">
+<AnchorPane id="AnchorPane" fx:id="MainPane" prefHeight="276.0" prefWidth="320" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="firecamp.LoginController">
    <children>
-      <Label layoutX="34.0" layoutY="172.0" text="Usuario" />
-      <Label layoutX="34.0" layoutY="201.0" text="Clave" />
-      <TextField layoutX="98.0" layoutY="168.0" prefHeight="25.0" prefWidth="192.0" />
-      <TextField layoutX="98.0" layoutY="197.0" prefHeight="25.0" prefWidth="192.0" />
-      <Button layoutX="98.0" layoutY="231.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="192.0" text="Iniciar sesión" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="85.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../resources/firecamp.png" />
          </image>
       </ImageView>
+      <Label layoutX="34.0" layoutY="172.0" text="Usuario" />
+      <Label layoutX="34.0" layoutY="201.0" text="Clave" />
+      <TextField layoutX="98.0" layoutY="168.0" prefHeight="25.0" prefWidth="192.0" />
+      <TextField layoutX="98.0" layoutY="197.0" prefHeight="25.0" prefWidth="192.0" />
+      <Button fx:id="LoginButton" layoutX="98.0" layoutY="231.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="25.0" prefWidth="192.0" text="Iniciar sesión" />
    </children>
 </AnchorPane>
