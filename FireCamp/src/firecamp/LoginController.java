@@ -7,11 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import models.User;
 import services.UserService;
 
@@ -46,10 +43,12 @@ public class LoginController implements Initializable
 
         try
         {
-            Scene scene = new Scene((Pane) loader.load());
+            Scene scene = new Scene((Pane) loader.load());            
             HomeController controller = loader.<HomeController>getController();
             controller.initData(user);
             FireCamp.getMainStage().hide();
+            FireCamp.getMainStage().setResizable(true);
+            FireCamp.getMainStage().setMaximized(true);
             FireCamp.getMainStage().setScene(scene);
             FireCamp.getMainStage().show();
         }

@@ -9,7 +9,6 @@ public final class MappingModel
 {
 
     public static User UserSelectResult(ResultSet resultSet)
-            throws Exception
     {
         User user = new User();
         try
@@ -35,7 +34,6 @@ public final class MappingModel
     }
 
     public static String UserInsertString(User user)
-            throws Exception
     {
         String id = "0";
         String createdAt = String.valueOf(new Timestamp(new Date().getTime()));

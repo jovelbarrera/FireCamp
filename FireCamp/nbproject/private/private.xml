@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/H:/UDB/Java/FireCamp/FireCamp/src/models/Model.java</file>
-            <file>file:/H:/UDB/Java/FireCamp/FireCamp/src/models/User.java</file>
-            <file>file:/H:/UDB/Java/FireCamp/FireCamp/src/models/Project.java</file>
-            <file>file:/H:/UDB/Java/FireCamp/FireCamp/src/services/IDBManager.java</file>
-            <file>file:/H:/UDB/Java/FireCamp/FireCamp/src/services/DBManager.java</file>
-            <file>file:/H:/UDB/Java/FireCamp/FireCamp/src/services/MySqlManager.java</file>
+            <file>file:/H:/UDB/Java/FireCamp/FireCamp/src/firecamp/HomeController.java</file>
+            <file>file:/H:/UDB/Java/FireCamp/FireCamp/src/firecamp/FireCamp.java</file>
+            <file>file:/H:/UDB/Java/FireCamp/FireCamp/src/firecamp/LoginController.java</file>
         </group>
     </open-files>
 </project-private>

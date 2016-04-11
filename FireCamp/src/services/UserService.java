@@ -36,7 +36,6 @@ public class UserService extends MySqlManager<User>
 
     @Override
     protected User ModelSelectResult(ResultSet resultSet)
-            throws Exception
     {
         User selectResult = MappingModel.UserSelectResult(resultSet);
         return selectResult;
@@ -44,7 +43,6 @@ public class UserService extends MySqlManager<User>
 
     @Override
     protected String ModelInsertString(User user)
-            throws Exception
     {
         String insertString = MappingModel.UserInsertString(user);
         return insertString;
