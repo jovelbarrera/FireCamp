@@ -18,6 +18,7 @@ public class LoginController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        TestingConnection();
     }
 
     @FXML
@@ -25,10 +26,6 @@ public class LoginController implements Initializable
     {
         try
         {
-//            Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
-//            Scene scene = new Scene(root);
-//            FireCamp.getMainStage().hide();
-//            FireCamp.getMainStage().setScene(scene);
             showHomeStage(testUser());
         }
         catch (Exception e)

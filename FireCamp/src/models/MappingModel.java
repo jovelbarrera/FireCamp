@@ -36,8 +36,8 @@ public final class MappingModel
     public static String UserInsertString(User user)
     {
         String id = "0";
-        String createdAt = String.valueOf(new Timestamp(new Date().getTime()));
-        String updatedAt = String.valueOf(new Timestamp(new Date().getTime()));
+        String createdAt = "null";
+        String updatedAt = "null";
         String username = user.getUsername();
         String email = user.getEmail();
         String password = user.getPassword();
@@ -64,8 +64,8 @@ public final class MappingModel
                 + "`position`)"
                 + "VALUES ("
                 + "%s,"
-                + "'%s',"
-                + "'%s',"
+                + "%s,"
+                + "%s,"
                 + "'%s',"
                 + "'%s',"
                 + "'%s',"
