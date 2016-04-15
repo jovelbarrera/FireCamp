@@ -29,7 +29,7 @@ public final class MappingModel {
     }
 
     public static String UserInsertString(User user) {
-        String id = "0";
+        String id = String.valueOf(user.getId());
         String createdAt = "null";
         String updatedAt = "null";
         String username = user.getUsername();
@@ -108,7 +108,7 @@ public final class MappingModel {
 
     public static String ProjectInsertString(Project project) {
         try {
-            String id = "0";
+            String id = String.valueOf(project.getId());
             String createdAt = "null";
             String updatedAt = "null";
             String name = project.getName();
@@ -127,12 +127,12 @@ public final class MappingModel {
             if (client != null) {
                 clientId = String.valueOf(client.getId());
             }
-            
+
             String startedAt = String.valueOf(project.getStaredAt());
             String deadlineAt = String.valueOf(project.getDeadlineAt());
 
             String insetString = String.format(
-                    "INSERT INTO `project`("
+                    "REPLACE INTO `project`("
                     + "`id`,"
                     + "`createdAt`,"
                     + "`updatedAt`,"
@@ -154,8 +154,8 @@ public final class MappingModel {
                     + "%s,"
                     + "%s,"
                     + "%s,"
-                    + "%s,"
-                    + "%s)",
+                    + "'%s',"
+                    + "'%s')",
                     id,
                     createdAt,
                     updatedAt,

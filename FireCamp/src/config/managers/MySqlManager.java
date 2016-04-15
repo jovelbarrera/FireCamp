@@ -76,6 +76,7 @@ public abstract class MySqlManager<T extends Model> extends DBManager<T> {
         if (model == null) {
             return false;
         }
+        boolean success= false;
         try {
             String insertQuery = ModelInsertString(model);
 
@@ -83,13 +84,14 @@ public abstract class MySqlManager<T extends Model> extends DBManager<T> {
             Statement statement = Connection.createStatement();
             statement.executeUpdate(insertQuery);
             System.out.println("Inserted records into the table...");
-            return true;
+            success= true;
         } catch (Exception ex) {
             System.out.println("MySqlManager.InsertOrUpdate Error: " + ex);
+            success=false;
         } finally {
             CloseConnection();
-            return false;
         }
+        return success;
     }
 
     @Override

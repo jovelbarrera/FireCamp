@@ -1,12 +1,10 @@
 package firecamp.cells;
 
+import firecamp.EditProjectController;
 import firecamp.FireCamp;
-import firecamp.HomeController;
 import java.text.SimpleDateFormat;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +13,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import models.Project;
 
 public class PendingProjectCell extends HBox {
@@ -29,7 +29,7 @@ public class PendingProjectCell extends HBox {
 
     public PendingProjectCell(Project project) {
         super();
-        _project=project;
+        _project = project;
         try {
             nameLabel.setText(project.getName());
             nameLabel.setFont(Font.font("Verdana", 20));
@@ -53,27 +53,30 @@ public class PendingProjectCell extends HBox {
 
             vBox.getChildren().addAll(nameLabel, descriptionLabel, clientInfoLabel, requestedAtLabel);
             detailsButton.setText("Evaluar");
-            detailsButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
-                    try {
-                        Parent root1 = (Parent) loader.load();
-                        Scene scene = new Scene((Pane) loader.load());
-                        HomeController controller = loader.<HomeController>getController();
-                        //controller.initData(_project);
-                        FireCamp.getMainStage().setTitle("My New Stage Title");
-                        FireCamp.getMainStage().setScene( new Scene(root1));
-                        FireCamp.getMainStage().show();
-                    } catch (Exception ex) {
-                        System.out.println("");
-                    }
-                }
+            detailsButton.setOnAction((ActionEvent e) -> {
+                EvaluateButtonClick(e);
             });
 
             this.getChildren().addAll(vBox, detailsButton);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void EvaluateButtonClick(ActionEvent e) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("firecamp/EditProject.fxml"));
+            Scene scene = new Scene((Pane) loader.load());
+            EditProjectController controller = loader.<EditProjectController>getController();
+            controller.initData(_project);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(FireCamp.getMainStage());
+            stage.show();
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
     }
 }

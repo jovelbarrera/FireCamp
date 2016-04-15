@@ -7,8 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="369.0" prefWidth="531.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="firecamp.EditProjectController">
+<AnchorPane id="AnchorPane" prefHeight="369.0" prefWidth="531.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="firecamp.EditProjectController">
    <children>
       <Label layoutX="34.0" layoutY="55.0" text="Solicitante">
          <font>
@@ -33,7 +32,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="acceptButton" layoutX="38.0" layoutY="307.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="133.0" text="Aprobar" />
+      <Button fx:id="acceptButton" layoutX="38.0" layoutY="307.0" mnemonicParsing="false" onAction="#handleAcceptButtonAction" prefHeight="27.0" prefWidth="133.0" text="Aprobar" />
       <Button fx:id="denyButton" layoutX="239.0" layoutY="307.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="121.0" text="Rechazar" />
       <DatePicker fx:id="startAtPicker" layoutX="166.0" layoutY="193.0" />
       <Label layoutX="38.0" layoutY="198.0" text="Fecha de inicio">
