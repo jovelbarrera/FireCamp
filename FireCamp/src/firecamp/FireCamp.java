@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class FireCamp extends Application
@@ -20,6 +21,7 @@ public class FireCamp extends Application
     @Override
     public void start(Stage stage) throws Exception
     {        
+        stage.getIcons().add(new Image ("/resources/firecamp.png"));
         _mainStage = stage;
         
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));

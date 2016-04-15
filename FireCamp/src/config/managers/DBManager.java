@@ -36,7 +36,7 @@ public abstract class DBManager<T extends Model> implements IDBManager<T>
         }
         catch (Exception e)
         {
-            System.out.println("DBManager Error: " + e.getMessage());
+            System.out.println("DBManager.OpenConnection Error: " + e.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public abstract class DBManager<T extends Model> implements IDBManager<T>
         }
         catch (Exception e)
         {
-            System.out.println("DBManager Error: " + e.getMessage());
+            System.out.println("DBManager.CloseConnection Error: " + e.getMessage());
         }
     }
 

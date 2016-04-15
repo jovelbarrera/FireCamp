@@ -84,7 +84,7 @@ public class Project extends Model {
         return _accepted;
     }
 
-    public boolean isIsActive()
+    public boolean isActive()
     {
         return _isActive;
     }
