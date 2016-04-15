@@ -1,5 +1,9 @@
 #Autosave files
 *~
+
+.DS_Store
+._.DS_Store
+
 # NetBeans specific #
 nbproject/private/
 build/
