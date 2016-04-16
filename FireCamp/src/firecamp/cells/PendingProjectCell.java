@@ -16,10 +16,12 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Project;
+import models.User;
 
 public class PendingProjectCell extends HBox {
 
     private Project _project;
+    private User _currentUser;
     VBox vBox = new VBox();
     Label nameLabel = new Label();
     Label descriptionLabel = new Label();
@@ -27,16 +29,17 @@ public class PendingProjectCell extends HBox {
     Label clientInfoLabel = new Label();
     Button detailsButton = new Button();
 
-    public PendingProjectCell(Project project) {
+    public PendingProjectCell(User currentUser, Project project) {
         super();
         _project = project;
+        _currentUser = currentUser;
         try {
             nameLabel.setText(project.getName());
             nameLabel.setFont(Font.font("Verdana", 20));
             nameLabel.setMaxWidth(Double.MAX_VALUE);
 
             descriptionLabel.setText(project.getDescription());
-            descriptionLabel.setMaxWidth(Double.MAX_VALUE);
+            descriptionLabel.setWrapText(true);
 
             if (project.getClient() != null) {
                 clientInfoLabel.setText("Cliente: " + project.getClient().getFirstName() + " " + project.getClient().getLastName() + " - " + project.getClient().getOrganization());
@@ -69,11 +72,12 @@ public class PendingProjectCell extends HBox {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("firecamp/EditProject.fxml"));
             Scene scene = new Scene((Pane) loader.load());
             EditProjectController controller = loader.<EditProjectController>getController();
-            controller.initData(_project);
+            controller.initData(_currentUser, _project);
             stage.setResizable(false);
             stage.setScene(scene);
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(FireCamp.getMainStage());
+            stage.setTitle("Evaluar proyecto");
             stage.show();
         } catch (Exception ex) {
             System.out.println(ex);

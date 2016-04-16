@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import models.Project;
 import models.User;
 import services.ProjectService;
+import services.UserService;
 
 public class LoginController implements Initializable {
 
@@ -49,26 +50,26 @@ public class LoginController implements Initializable {
 
     private boolean authentication(String username, String pass) {
         // TODO for testing
-        _loggedUser = testUser();
-        return true;
+//        _loggedUser = testUser();
+//        return true;
 
-//        try {
-//            List<User> users = UserService.getInstance().Select(String.format("username = '%s' AND password = '%s'", username, pass));
-//            if (users != null && users.size() == 1) {
-//                _loggedUser = users.get(0);
-//                return true;
-//            } else {
-//                return false;
-//            }
-//        } catch (Exception e) {
-//            Alert alert = new Alert(AlertType.ERROR);
-//            alert.setTitle("Error");
-//            alert.setHeaderText("No se pudo iniciar la aplicación");
-//            alert.setContentText("Hubo un error al intentar iniciar FireCamp");
-//            alert.showAndWait();
-//            System.out.println("Error " + e.getMessage());
-//            return false;
-//        }
+        try {
+            List<User> users = UserService.getInstance().Select(String.format("username = '%s' AND password = '%s'", username, pass));
+            if (users != null && users.size() == 1 && users.get(0).isAdmin()) {
+                _loggedUser = users.get(0);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No se pudo iniciar la aplicación");
+            alert.setContentText("Hubo un error al intentar iniciar FireCamp");
+            alert.showAndWait();
+            System.out.println("Error " + e.getMessage());
+            return false;
+        }
 
     }
 
@@ -83,6 +84,7 @@ public class LoginController implements Initializable {
             FireCamp.getMainStage().setResizable(true);
             FireCamp.getMainStage().setMaximized(true);
             FireCamp.getMainStage().setScene(scene);
+            FireCamp.getMainStage().setTitle("FireCamp");
             FireCamp.getMainStage().show();
         } catch (Exception e) {
         }

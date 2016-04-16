@@ -50,6 +50,6 @@ public class ActiveProjectCell extends HBox {
         vBox.getChildren().addAll(nameLabel, descriptionLabel, clientInfoLabel, managerInfoLabel, deadlineLabel);
         detailsButton.setText("Ver detalles");
 
-        this.getChildren().addAll(vBox, detailsButton);
+        this.getChildren().addAll(vBox);
     }
 }

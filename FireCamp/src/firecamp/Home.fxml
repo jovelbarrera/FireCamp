@@ -14,9 +14,14 @@
               <menus>
                 <Menu mnemonicParsing="false" text="FireCamp">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Salir" />
+                    <MenuItem fx:id="closeMenuBar" mnemonicParsing="false" onAction="#closeMenuBarAction" text="Salir" />
                   </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="Opciones">
+                     <items>
+                        <MenuItem fx:id="updateMenuBar" mnemonicParsing="false" onAction="#updateMenuBarAction" text="Actualizar" />
+                     </items>
+                  </Menu>
                 <Menu mnemonicParsing="false" text="Ayuda">
                   <items>
                     <MenuItem mnemonicParsing="false" text="About" />

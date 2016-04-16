@@ -22,6 +22,8 @@ public final class MappingModel {
             user.setOrganization(resultSet.getString("organization"));
             user.setIsActive(resultSet.getBoolean("isActive"));
             user.setPosition(resultSet.getString("position"));
+            user.setIsInternal(resultSet.getBoolean("isInternal"));
+            user.setIsAdmin(resultSet.getBoolean("isAdmin"));
         } catch (Exception e) {
             System.out.println("MappingModel.UserSelectResult Error: " + e.getMessage());
         }
@@ -41,9 +43,11 @@ public final class MappingModel {
         String organization = user.getOrganization();
         String isActive = String.valueOf(user.getIsActive());
         String position = user.getPosition();
+        String isInternal = String.valueOf(user.getIsInternal());
+        String isAdmin = String.valueOf(user.isAdmin());
 
         String insetString = String.format(
-                "INSERT INTO `User`("
+                "REPLACE INTO `User`("
                 + "`id`,"
                 + "`createdAt`,"
                 + "`updatedAt`,"
@@ -55,7 +59,9 @@ public final class MappingModel {
                 + "`lastName`,"
                 + "`organization`,"
                 + "`isActive`,"
-                + "`position`)"
+                + "`position`,"
+                + "`isInternal`,"
+                + "`isAdmin`)"
                 + "VALUES ("
                 + "%s,"
                 + "%s,"
@@ -68,7 +74,9 @@ public final class MappingModel {
                 + "'%s',"
                 + "'%s',"
                 + "%s,"
-                + "'%s')",
+                + "'%s',"
+                + "%s,"
+                + "%s)",
                 id,
                 createdAt,
                 updatedAt,
@@ -80,7 +88,10 @@ public final class MappingModel {
                 lastName,
                 organization,
                 isActive,
-                position);
+                position,
+                isInternal,
+                isAdmin
+        );
         return insetString;
     }
 
@@ -100,6 +111,7 @@ public final class MappingModel {
             project.setClient(client);
             project.setStaredAt(resultSet.getDate("startedAt"));
             project.setDeadlineAt(resultSet.getDate("deadlineAt"));
+
         } catch (Exception e) {
             System.out.println("MappingModel.ProjectSelectResult Error: " + e.getMessage());
         }
@@ -127,9 +139,15 @@ public final class MappingModel {
             if (client != null) {
                 clientId = String.valueOf(client.getId());
             }
-
             String startedAt = String.valueOf(project.getStaredAt());
+            if (!startedAt.equals("null")) {
+                startedAt = "'" + startedAt + "'";
+            }
+            
             String deadlineAt = String.valueOf(project.getDeadlineAt());
+            if (!deadlineAt.equals("null")) {
+                deadlineAt = "'" + deadlineAt + "'";
+            }
 
             String insetString = String.format(
                     "REPLACE INTO `project`("
@@ -154,8 +172,8 @@ public final class MappingModel {
                     + "%s,"
                     + "%s,"
                     + "%s,"
-                    + "'%s',"
-                    + "'%s')",
+                    + "%s,"
+                    + "%s)",
                     id,
                     createdAt,
                     updatedAt,
