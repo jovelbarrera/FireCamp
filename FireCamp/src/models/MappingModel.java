@@ -1,8 +1,6 @@
 package models;
 
-import static com.oracle.jrockit.jfr.FlightRecorder.isActive;
 import java.sql.ResultSet;
-import static jdk.nashorn.internal.runtime.Debug.id;
 import services.UserService;
 
 public final class MappingModel {
@@ -143,7 +141,7 @@ public final class MappingModel {
             if (!startedAt.equals("null")) {
                 startedAt = "'" + startedAt + "'";
             }
-            
+
             String deadlineAt = String.valueOf(project.getDeadlineAt());
             if (!deadlineAt.equals("null")) {
                 deadlineAt = "'" + deadlineAt + "'";
@@ -189,5 +187,55 @@ public final class MappingModel {
         } catch (Exception e) {
             return "";
         }
+    }
+
+    public static Privilege PrivilegeSelectResult(ResultSet resultSet) {
+        Privilege privilage = new Privilege();
+        try {
+            privilage.setId(resultSet.getInt("id"));
+            privilage.setCreatedAt(resultSet.getDate("createdAt"));
+            privilage.setUpdatedAt(resultSet.getDate("updatedAt"));
+            User user = UserService.getInstance().Select(resultSet.getInt("userId"));
+            privilage.setUser(user);
+            User createdBy = UserService.getInstance().Select(resultSet.getInt("createdBy"));
+            privilage.setCreatedBy(createdBy);
+            privilage.setLevel(resultSet.getInt("level"));
+        } catch (Exception e) {
+            System.out.println("MappingModel.PrivilegeSelectResult Error: " + e.getMessage());
+        }
+        return privilage;
+    }
+
+    public static String PrivilegesInsertString(Privilege privilege) {
+        String id = String.valueOf(privilege.getId());
+        String createdAt = "null";
+        String updatedAt = "null";
+        int userId = privilege.getUser().getId();
+        int level = privilege.getLevel();
+        int createdBy = privilege.getCreatedBy().getId();
+
+        String insetString = String.format(
+                "REPLACE INTO `privilege`("
+                + "`id`,"
+                + "`createdAt`,"
+                + "`updatedAt`,"
+                + "`userId`,"
+                + "`level`,"
+                + "`createdBy`)"
+                + "VALUES ("
+                + "%s,"
+                + "%s,"
+                + "%s,"
+                + "%s,"
+                + "%s,"
+                + "%s)",
+                id,
+                createdAt,
+                updatedAt,
+                userId,
+                level,
+                createdBy
+        );
+        return insetString;
     }
 }

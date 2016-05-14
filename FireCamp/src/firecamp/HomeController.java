@@ -16,9 +16,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
+import models.Privilege;
 import models.Project;
 import models.User;
+import services.PrivilegeService;
 import services.ProjectService;
 import services.UserService;
 
@@ -101,7 +102,17 @@ public class HomeController implements Initializable {
             List<UsersCell> list = new ArrayList<>();
             users.stream().forEach((user) -> {
                 if (_currentUser.getId() != user.getId()) {
-                    list.add(new UsersCell(_currentUser, user));
+                    String where = String.format("userId = %d", user.getId());
+                    try {
+                        List<Privilege> privileges = PrivilegeService.getInstance().Select(where);
+                        if (privileges.isEmpty()) {
+                            list.add(new UsersCell(_currentUser, user, new Privilege()));
+                        } else {
+                            list.add(new UsersCell(_currentUser, user, privileges.get(0)));
+                        }
+                    } catch (Exception ex ) {
+                        list.add(new UsersCell(_currentUser, user, new Privilege()));
+                    }
                 }
             });
             ObservableList<UsersCell> observableList = FXCollections.observableList(list);

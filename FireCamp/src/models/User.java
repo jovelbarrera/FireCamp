@@ -53,37 +53,12 @@ public class User extends Model {
         this._position = _position;
     }
 
-    public void setId(int Id) {
-        this.Id = Id;
-    }
-
-    public void setCreatedAt(Date CreatedAt) {
-        this.CreatedAt = CreatedAt;
-    }
-
-    public void setUpdatedAt(Date UpdatedAt) {
-        this.UpdatedAt = UpdatedAt;
-    }
-
     public void setIsInternal(boolean _isInternal) {
         this._isInternal = _isInternal;
     }
 
     public void setIsAdmin(boolean _isAdmin) {
         this._isAdmin = _isAdmin;
-    }
-    // Getterspublic int getId()
-
-    public int getId() {
-        return Id;
-    }
-
-    public Date getCreatedAt() {
-        return CreatedAt;
-    }
-
-    public Date getUpdatedAt() {
-        return UpdatedAt;
     }
 
     public String getUsername() {

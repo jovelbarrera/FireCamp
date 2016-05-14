@@ -14,8 +14,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import models.Privilege;
 import models.Project;
 import models.User;
+import services.PrivilegeService;
 import services.ProjectService;
 import services.UserService;
 
@@ -55,9 +57,16 @@ public class LoginController implements Initializable {
 
         try {
             List<User> users = UserService.getInstance().Select(String.format("username = '%s' AND password = '%s'", username, pass));
-            if (users != null && users.size() == 1 && users.get(0).isAdmin()) {
-                _loggedUser = users.get(0);
-                return true;
+
+            if (users != null && users.size() == 1) {
+                List<Privilege> privileges = PrivilegeService.getInstance().Select(String.format("userId = %d", users.get(0).getId()));
+                if (privileges != null && privileges.size() > 0
+                        && (privileges.get(privileges.size() - 1).getLevel() == 1 || privileges.get(privileges.size() - 1).getLevel() == 2)) {
+                    _loggedUser = users.get(0);
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }

@@ -34,13 +34,14 @@ public abstract class MySqlManager<T extends Model> extends DBManager<T> {
 
     // DBManager Implementation
     @Override
-    public List<T> Select(String insertString) {
+    public List<T> Select(String selectString) {
         try {
             String selectQuery = "";
-            if (insertString == null || insertString.equals("")) {
+
+            if (selectString == null || selectString.equals("")) {
                 selectQuery = String.format("SELECT * FROM %s", getTable());
             } else {
-                selectQuery = String.format("SELECT * FROM %s WHERE %s", getTable(), insertString);
+                selectQuery = String.format("SELECT * FROM %s WHERE %s", getTable(), selectString);
             }
 
             OpenConnection();
@@ -76,7 +77,7 @@ public abstract class MySqlManager<T extends Model> extends DBManager<T> {
         if (model == null) {
             return false;
         }
-        boolean success= false;
+        boolean success = false;
         try {
             String insertQuery = ModelInsertString(model);
 
@@ -84,10 +85,10 @@ public abstract class MySqlManager<T extends Model> extends DBManager<T> {
             Statement statement = Connection.createStatement();
             statement.executeUpdate(insertQuery);
             System.out.println("Inserted records into the table...");
-            success= true;
+            success = true;
         } catch (Exception ex) {
             System.out.println("MySqlManager.InsertOrUpdate Error: " + ex);
-            success=false;
+            success = false;
         } finally {
             CloseConnection();
         }
@@ -116,5 +117,35 @@ public abstract class MySqlManager<T extends Model> extends DBManager<T> {
     public boolean Delete(int id) {
         boolean success = Delete(String.format("id=%d", id));
         return success;
+    }
+    // End DBManager implementation
+
+    public List<T> Call(String selectString, boolean isProcedure) {
+        try {
+            String selectQuery = "";
+
+            if (selectString == null || selectString.equals("")) {
+                System.out.println("MySqlManager.Call selectString empty");
+                return null;
+            } else {
+                selectQuery = String.format("CALL ( %s )", selectString);
+            }
+
+            OpenConnection();
+            Statement stmt = Connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery(selectQuery);
+
+            List<T> result = new ArrayList<>();
+            while (resultSet.next()) {
+                result.add(ModelSelectResult(resultSet));
+            }
+            return result;
+        } catch (Exception ex) {
+            CloseConnection();
+            System.out.println("MySqlManager.Call Error: " + ex);
+            return null;
+        } finally {
+            CloseConnection();
+        }
     }
 }

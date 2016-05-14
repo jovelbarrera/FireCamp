@@ -1,5 +1,6 @@
 package firecamp;
 
+import firecamp.cells.TextCell;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,7 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import models.Project;
 import models.User;
@@ -79,26 +79,6 @@ public class EditProjectController implements Initializable {
             System.out.println(e);
         }
 
-    }
-
-    public class TextCell<T> extends HBox {
-
-        public T Model;
-
-        public T getModel() {
-            return Model;
-        }
-        Label textLabel = new Label();
-
-        public TextCell(T model, String text) {
-            Model = model;
-            textLabel = new Label(text);
-            try {
-                this.getChildren().addAll(textLabel);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
     }
 
     private void alertWarning(String title, String message) {

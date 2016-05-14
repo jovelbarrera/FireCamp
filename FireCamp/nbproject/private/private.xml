@@ -5,11 +5,12 @@
         <group>
             <file>file:/Users/robertojovel/Documents/FireCamp/FireCamp/src/config/managers/MySqlManager.java</file>
             <file>file:/Users/robertojovel/Documents/FireCamp/FireCamp/src/firecamp/cells/ActiveProjectCell.java</file>
-            <file>file:/Users/robertojovel/Documents/FireCamp/FireCamp/src/firecamp/LoginController.java</file>
             <file>file:/Users/robertojovel/Documents/FireCamp/FireCamp/src/models/MappingModel.java</file>
+            <file>file:/Users/robertojovel/Documents/FireCamp/FireCamp/src/firecamp/LoginController.java</file>
             <file>file:/Users/robertojovel/Documents/FireCamp/FireCamp/src/firecamp/cells/UsersCell.java</file>
-            <file>file:/Users/robertojovel/Documents/FireCamp/FireCamp/src/services/UserService.java</file>
-            <file>file:/Users/robertojovel/Documents/FireCamp/FireCamp/src/firecamp/HomeController.java</file>
+            <file>file:/Users/robertojovel/Documents/FireCamp/FireCamp/src/firecamp/cells/TextCell.java</file>
+            <file>file:/Users/robertojovel/Documents/FireCamp/FireCamp/src/models/Privilege.java</file>
+            <file>file:/Users/robertojovel/Documents/FireCamp/FireCamp/src/services/PrivilegeService.java</file>
         </group>
     </open-files>
 </project-private>

@@ -53,21 +53,6 @@ public class Project extends Model {
         this._deadlineAt = _deadlineAt;
     }
 
-    public void setId(int Id)
-    {
-        this.Id = Id;
-    }
-
-    public void setCreatedAt(Date CreatedAt)
-    {
-        this.CreatedAt = CreatedAt;
-    }
-
-    public void setUpdatedAt(Date UpdatedAt)
-    {
-        this.UpdatedAt = UpdatedAt;
-    }
-
     // Getters
     public String getName()
     {
@@ -107,20 +92,5 @@ public class Project extends Model {
     public Date getDeadlineAt()
     {
         return _deadlineAt;
-    }
-
-    public int getId()
-    {
-        return Id;
-    }
-
-    public Date getCreatedAt()
-    {
-        return CreatedAt;
-    }
-
-    public Date getUpdatedAt()
-    {
-        return UpdatedAt;
     }
 }
