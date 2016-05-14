@@ -1,0 +1,35 @@
+header
+{
+    background-color: #F89A13;
+}
+
+footer
+{
+    background-color: #F89A13;    
+}
+
+body
+{
+ font-family: calibri;
+ font-size: 16pt;
+ display: table;
+ width: 100%;
+}
+.clase-general
+{
+  display: table-row;
+}
+
+td, th
+{
+    padding: 10px;
+}
+
+.project 
+{
+    width: 100%;
+    border-color: #F89A13; 
+    border-radius: 10px; 
+    border-style: groove;
+    margin: 10px;
+}
